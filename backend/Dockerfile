@@ -6,14 +6,14 @@ COPY requirements.txt .
 
 RUN pip install --upgrade pip
 
-RUN pip install --default-timeout=1000 \
-    --index-url https://download.pytorch.org/whl/cpu \
-    torch
-
-RUN pip install --default-timeout=1000 --no-cache-dir -r requirements.txt
+RUN pip install \
+    --default-timeout=1000 \
+    --extra-index-url https://download.pytorch.org/whl/cpu \
+    --no-cache-dir \
+    -r requirements.txt
 
 COPY . .
 
 EXPOSE 8080
 
-CMD ["uvicorn","app.main:app","--host","0.0.0.0","--port","8080"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
